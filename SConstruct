@@ -3,18 +3,24 @@
 # Settings
 src_dir = "src"
 src_files = Split("""
-main.cpp
+Vector2D.hpp
+MapGen.hpp
+MapGen.cpp
 """)
 
 build_dir = "build"
-target = "main"
+targets = [
+["main", "main.cpp"],
+["MapGenTest", "MapGenTest.cpp"]
+]
 
 
 
 from os import path
 
 env = Environment(CC = "gcc",
-                  CCFLAGS = "-O2")
+                  CCFLAGS = "-O2 -std=c++11",
+                  LINKFLAGS = "-O2 -std=c++11")
 env.VariantDir(build_dir + "/", src_dir + "/")
 
 # Check external libs
@@ -31,8 +37,9 @@ if not config.CheckLibWithHeader('OIS', 'OISPrereqs.h', 'C++'):
 # Check Ogre is installed
 if not config.CheckLibWithHeader( 'OgreMain', 'Ogre.h', 'C++' ):
     print "Ogre Must be installed!"
-    Exit(1)
+#    Exit(1)
     
 env = config.Finish(); 
 
-env.Program(target, [path.join(build_dir, f) for f in src_files])
+for target in targets:
+    env.Program(target[0], [path.join(build_dir, f) for f in src_files + [target[1]]])
