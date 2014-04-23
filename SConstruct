@@ -1,5 +1,3 @@
-# Ogre specific scons details from http://www.ogre3d.org/tikiwiki/tiki-index.php?page=Setting+Up+An+Application+-+Linux+-+Shoggoth
-
 # Settings
 src_dir = "src"
 src_files = Split("""
@@ -14,7 +12,10 @@ targets = [
 ["MapGenTest", "MapGenTest.cpp"]
 ]
 
-
+libs = [
+"libtcodxx.a"
+]
+libpath = "lib/jice-libtcod-d56ffc19afb9"
 
 from os import path
 
@@ -22,24 +23,7 @@ env = Environment(CC = "gcc",
                   CCFLAGS = "-O2 -std=c++11",
                   LINKFLAGS = "-O2 -std=c++11")
 env.VariantDir(build_dir + "/", src_dir + "/")
-
-# Check external libs
-env.ParseConfig('pkg-config --silence-errors --libs --cflags OGRE || true')
-env.ParseConfig('pkg-config --silence-errors --libs --cflags OIS || true')
-
-config = Configure(env);
-
-# Check OIS is installed
-if not config.CheckLibWithHeader('OIS', 'OISPrereqs.h', 'C++'):
-    print 'OIS must be installed!'
-    Exit(1)
-    
-# Check Ogre is installed
-if not config.CheckLibWithHeader( 'OgreMain', 'Ogre.h', 'C++' ):
-    print "Ogre Must be installed!"
-#    Exit(1)
-    
-env = config.Finish(); 
+env.Command("lib/jice-libtcod-d56ffc19afb9/libtcodxx.a", "", "cd lib/jice-libtcod-d56ffc19afb9 && make -f makefiles/makefile-linux64 libtcodxx.a")
 
 for target in targets:
-    env.Program(target[0], [path.join(build_dir, f) for f in src_files + [target[1]]])
+    env.Program(target=target[0], source=[path.join(build_dir, f) for f in src_files + [target[1]]], LIBS=libs, LIBPATH=libpath)
