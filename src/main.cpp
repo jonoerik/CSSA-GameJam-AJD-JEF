@@ -1,6 +1,7 @@
 #include "libtcod.hpp"
 #include "Map.hpp"
 #include "Drone.hpp"
+#include "Player.hpp"
 #include <vector>
 
 static size_t width = 150;
@@ -14,6 +15,8 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < 10; i++) {
 	drones.emplace_back(&map);
     }
+
+    Player player(&map, 1, 1);
     
     bool running = true;
     while (running && !TCODConsole::isWindowClosed()) {
@@ -21,6 +24,7 @@ int main(int argc, char* argv[]) {
 	for (auto& drone : drones) {
 	    drone.Render();
 	}
+	player.Render();
 	TCODConsole::flush();
 
 	TCOD_key_t key;

@@ -6,12 +6,14 @@
 class Player
 {
 public:
-    Player(Map * map);
-    void draw();
+    Player(Map * map, int x, int y);
+    void Render();
     int move(int dx, int dy);
     
 private:
     Map* map_;
+    int x;
+    int y;
 };
 
 #endif
