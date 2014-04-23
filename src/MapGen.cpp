@@ -1,6 +1,5 @@
 #include "MapGen.hpp"
 
-#include <cstddef>
 #include <utility>
 #include <vector>
 #include <random>

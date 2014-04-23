@@ -1,6 +1,8 @@
 #ifndef MAPGEN_H
 #define MAPGEN_H
+
 #include "Vector2D.hpp"
+#include <cstddef>
 
 class MapGen
 {
