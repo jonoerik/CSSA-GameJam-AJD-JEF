@@ -6,12 +6,13 @@
 class Player
 {
 public:
-    Player(Map * map, int x, int y);
+    Player(Map& map, int x, int y);
     void Render();
-    int move(int dx, int dy);
+    int Move(int dx, int dy);
+    bool IsHidden();
     
 private:
-    Map* map_;
+    Map& map_;
     int x;
     int y;
 };
