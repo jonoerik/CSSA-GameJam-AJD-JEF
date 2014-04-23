@@ -34,6 +34,18 @@ int main(int argc, char* argv[]) {
 	    case TCODK_ESCAPE:
 		running = false;
 		break;
+	    case TCODK_LEFT:
+		player.move(-1, 0);
+		break;
+	    case TCODK_RIGHT:
+		player.move(1, 0);
+		break;
+	    case TCODK_DOWN:
+		player.move(0, 1);
+		break;
+	    case TCODK_UP:
+		player.move(0, -1);
+		break;
 	    }
 	} while (key.vk != TCODK_NONE);
     }
