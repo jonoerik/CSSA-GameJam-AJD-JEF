@@ -9,6 +9,7 @@ class Map
 {
 public:
     Map(size_t width, size_t height);
+    void Render();
 
 private:
     size_t width_;
