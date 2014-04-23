@@ -6,6 +6,8 @@ MapGen.hpp
 MapGen.cpp
 Map.hpp
 Map.cpp
+Drone.hpp
+Drone.cpp
 """)
 
 build_dir = "build"

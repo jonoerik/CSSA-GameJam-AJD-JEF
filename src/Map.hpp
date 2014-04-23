@@ -10,6 +10,9 @@ class Map
 public:
     Map(size_t width, size_t height);
     void Render();
+    size_t Width() const { return width_; }
+    size_t Height() const { return height_; }
+    bool Walkable(size_t x, size_t y);
 
 private:
     size_t width_;

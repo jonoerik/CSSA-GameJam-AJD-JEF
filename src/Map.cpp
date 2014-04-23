@@ -27,3 +27,8 @@ void Map::Render()
 	}
     }
 }
+
+bool Map::Walkable(size_t x, size_t y)
+{
+    return map_(x, y) == MapGen::CellType::hallway;
+}
