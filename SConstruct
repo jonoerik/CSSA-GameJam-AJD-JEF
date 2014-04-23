@@ -8,6 +8,8 @@ Map.hpp
 Map.cpp
 Drone.hpp
 Drone.cpp
+Player.hpp
+Player.cpp
 """)
 
 build_dir = "build"
