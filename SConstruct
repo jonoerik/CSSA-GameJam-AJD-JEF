@@ -1,33 +1,37 @@
 # Settings
 src_dir = "src"
 src_files = Split("""
+MapGen.cpp
+Map.cpp
+Drone.cpp
+Player.cpp
+""")
+src_headers = Split("""
 Vector2D.hpp
 MapGen.hpp
-MapGen.cpp
 Map.hpp
-Map.cpp
 Drone.hpp
-Drone.cpp
 Player.hpp
-Player.cpp
 """)
 
 build_dir = "build"
 targets = [
-["main", "main.cpp"],
-["MapGenTest", "MapGenTest.cpp"]
+    ["main", "main.cpp"],
+    ["MapGenTest", "MapGenTest.cpp"]
 ]
 
 libs = [
-"libtcodxx.a",
-"libtcod.a",
-"SDL",
-"GL"
+    "libtcodxx.a",
+    "libtcod.a",
+    "SDL",
+    "GL"
 ]
-libpath = "lib/jice-libtcod-d56ffc19afb9"
+libpath = [
+    "lib/jice-libtcod-d56ffc19afb9"
+]
 
 includepaths = [
-"lib/jice-libtcod-d56ffc19afb9/include"
+    "lib/jice-libtcod-d56ffc19afb9/include"
 ]
 
 from os import path
