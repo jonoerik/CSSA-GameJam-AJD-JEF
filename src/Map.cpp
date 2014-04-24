@@ -16,12 +16,12 @@ void Map::Render()
 	    TCODConsole::root->setCharForeground(x,y,TCODColor::white);
 	    char c = ' ';
 	    switch (map_(x,y)) {
-	    case MapGen::CellType::wall:
-		c = '#';
-		break;
-	    case MapGen::CellType::hallway:
-		c = '.';
-		break;
+		case MapGen::CellType::wall:
+		    c = '#';
+		    break;
+		case MapGen::CellType::hallway:
+		    c = '.';
+		    break;
 	    }
 	    TCODConsole::root->setChar(x,y,c);
 	}

@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 	drones.emplace_back(&map);
     }
 
-    Player player(map, 1, 1);
+    Player player(map, 1, 1, 10);
     
     bool running = true;
     while (running && !TCODConsole::isWindowClosed()) {
@@ -25,6 +25,7 @@ int main(int argc, char* argv[]) {
 	    drone.Render();
 	}
 	player.Render();
+	player.RenderVisibility();
 	TCODConsole::flush();
 
 	TCOD_key_t key;
