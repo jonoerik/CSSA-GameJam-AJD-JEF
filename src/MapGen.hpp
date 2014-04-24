@@ -27,6 +27,7 @@ private:
 
     static void DivideHoriz(Vector2D<CellType>& map, std::vector<Region>& areas, const Region& r);
     static void DivideVert(Vector2D<CellType>& map, std::vector<Region>& areas, const Region& r);
+    static void EmptyRoom(Vector2D<CellType>& map, std::vector<Region>& areas, const Region& r);
 
     static const size_t minRoomSize_ = 3;
 };

@@ -43,7 +43,9 @@ Vector2D<MapGen::CellType> MapGen::Generate(size_t width, size_t height)
             DivideVert(map, areas, r);
         } else if (r.height_ > minRoomSize_ * 2 + 1) {
             DivideHoriz(map, areas, r);
-        }
+        } else if (rand() % 10 == 0) {
+	    EmptyRoom(map, areas, r);
+	}
     }
     return std::move(map);
 }
@@ -68,4 +70,13 @@ void MapGen::DivideVert(Vector2D<CellType>& map, std::vector<Region>& areas, con
     }
     areas.push_back(Region(r.x_, r.y_, splitPoint - r.x_ - 1, r.height_));
     areas.push_back(Region(splitPoint + 1, r.y_, r.x_ + r.width_ - 1 - splitPoint, r.height_));
+}
+
+void MapGen::EmptyRoom(Vector2D<CellType>& map, std::vector<Region>& areas, const Region& r)
+{
+    for (size_t y = r.y_; y < r.y_ + r.height_ + 1; y++) {
+	for (size_t x = r.x_; x < r.x_ + r.width_ + 1; x++) {
+	    map(x, y) = CellType::hallway;
+	}
+    }
 }
