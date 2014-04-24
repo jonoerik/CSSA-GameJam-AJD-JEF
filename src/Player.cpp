@@ -16,11 +16,14 @@ Player::Player(Map& map, int fov_radius, int lives) :
     }
     map_.ChangePlayerPos(x, y, fov_radius);
     map_.TcodMap().computeFov(x, y, fov_radius);
+    hidden_time_finish_ = 0;
+    energy_ = 5;
 }
 
 void Player::Render()
 {
-    TCODConsole::root->setCharForeground(x, y, TCODColor::lightCyan);
+    TCODConsole::root->setCharForeground(x, y,
+					 IsHidden() ? TCODColor::grey : TCODColor::lightCyan);
     TCODConsole::root->setChar(x, y, '@');
 }
 
@@ -37,9 +40,17 @@ int Player::Move(int dx, int dy)
     return 0;
 }
 
+void Player::Hide()
+{
+    if (!IsHidden() && energy_ > 0) {
+	hidden_time_finish_ = TCODSystem::getElapsedMilli() + 5000;
+	energy_--;
+    }
+}
+
 bool Player::IsHidden()
 {
-    return false;
+    return hidden_time_finish_ > TCODSystem::getElapsedMilli();
 }
 
 void Player::Collide() {
