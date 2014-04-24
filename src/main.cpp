@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 	    down
 	    };
     std::map<TCOD_keycode_t, keystate> keys;
-    for (auto k : {TCODK_UP, TCODK_DOWN, TCODK_LEFT, TCODK_RIGHT}) {
+    for (auto k : {TCODK_UP, TCODK_DOWN, TCODK_LEFT, TCODK_RIGHT, TCODK_SPACE}) {
 	keys[k] = keystate::up;
     }
 
@@ -83,6 +83,12 @@ int main(int argc, char* argv[]) {
 		    keys[TCODK_RIGHT] = keystate::up;
 		}
 	    }
+	    if (keys[TCODK_SPACE] != keystate::up) {
+		player.Hide();
+		if (keys[TCODK_SPACE] == keystate::pressed) {
+		    keys[TCODK_SPACE] = keystate::up;
+		}
+	    }
 
 	    for (auto& drone : drones) {
 		if (drone.X() == player.X() && drone.Y() == player.Y()) {
@@ -102,7 +108,12 @@ int main(int argc, char* argv[]) {
 	player.Render();
 
 	// Scoring details
-	TCODConsole::root->print(width - 30, 0, "  Lives: %d  ", player.lives());
+	TCODConsole::root->print(width - 40, 0, "  Lives: %d  ", player.Lives());
+	TCODConsole::root->print(width - 30, 0, "  Energy: %d  ", player.Energy());
+	if (player.IsHidden()) {
+	    TCODConsole::root->print(width - 20, 0, "  Hide Time: %d  ", player.HiddenTime());
+	}
+
 	TCODConsole::flush();
     }
     return 0;
