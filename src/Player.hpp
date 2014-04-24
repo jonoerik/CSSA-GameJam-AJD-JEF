@@ -7,7 +7,7 @@
 class Player
 {
 public:
-    Player(Map& map, int x, int y, int fov_radius, int lives);
+    Player(Map& map, int fov_radius, int lives);
     void Render();
     int Move(int dx, int dy);
     bool IsHidden();

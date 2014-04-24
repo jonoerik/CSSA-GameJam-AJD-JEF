@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
 	drones.emplace_back(&map);
     }
 
-    Player player(map, 1, 1, 20, 5);
+    Player player(map, 20, 5);
     
     enum class keystate {
 	up,

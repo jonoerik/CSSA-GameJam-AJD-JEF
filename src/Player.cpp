@@ -1,8 +1,20 @@
 #include "libtcod.hpp"
 #include "Player.hpp"
 
-Player::Player(Map& map, int x, int y, int fov_radius, int lives) : map_(map), x(x), y(y), fov_radius(fov_radius), lives_(lives)
+Player::Player(Map& map, int fov_radius, int lives) :
+    map_(map),
+    fov_radius(fov_radius),
+    lives_(lives)
 {
+    bool posFound = false;
+    while (!posFound) {
+	x = TCODRandom::getInstance()->getInt(0, map_.Width() - 1);
+	y = TCODRandom::getInstance()->getInt(0, map_.Height() - 1);
+	if (map_.Walkable(x, y)) {
+	    posFound = true;
+	}
+    }
+    map_.ChangePlayerPos(x, y, fov_radius);
     map_.TcodMap().computeFov(x, y, fov_radius);
 }
 
@@ -32,7 +44,13 @@ bool Player::IsHidden()
 
 void Player::Collide() {
     lives_--;
-    x = 1;
-    y = 1;
+    bool posFound = false;
+    while (!posFound) {
+	x = TCODRandom::getInstance()->getInt(0, map_.Width() - 1);
+	y = TCODRandom::getInstance()->getInt(0, map_.Height() - 1);
+	if (map_.Walkable(x, y)) {
+	    posFound = true;
+	}
+    }
     map_.ChangePlayerPos(x, y, fov_radius);
 }
