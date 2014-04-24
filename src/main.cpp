@@ -100,6 +100,9 @@ int main(int argc, char* argv[]) {
 	    drone.Render();
 	}
 	player.Render();
+
+	// Scoring details
+	TCODConsole::root->print(width - 30, 0, "  Lives: %d  ", player.lives());
 	TCODConsole::flush();
     }
     return 0;
