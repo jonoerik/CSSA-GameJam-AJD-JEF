@@ -19,7 +19,6 @@ int Player::Move(int dx, int dy)
     if (map_.Walkable(new_x, new_y)) {
 	x += dx;
 	y += dy;
-	//map_.TcodMap().computeFov(x, y, fov_radius);
 	map_.ChangePlayerPos(x, y, fov_radius);
 	return 1;
     }
@@ -33,7 +32,7 @@ bool Player::IsHidden()
 
 void Player::Collide() {
     lives_--;
-    if (!lives_) {
-	std::cout << "much death, very destruction\n";
-    }
+    x = 1;
+    y = 1;
+    map_.ChangePlayerPos(x, y, fov_radius);
 }

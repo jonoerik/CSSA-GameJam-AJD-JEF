@@ -3,7 +3,6 @@
 
 #include "Map.hpp"
 #include "libtcod.hpp"
-#include <iostream>
 
 class Player
 {
@@ -15,7 +14,7 @@ public:
     void Collide();
     int X() { return x; };
     int Y() { return y; };
-    
+    int lives() { return lives_; }
 private:
     Map& map_;
     int x;
