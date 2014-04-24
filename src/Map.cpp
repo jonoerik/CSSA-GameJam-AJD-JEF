@@ -1,11 +1,16 @@
-#include "libtcod.hpp"
 #include "Map.hpp"
 
 Map::Map(size_t width, size_t height) :
     width_(width),
     height_(height),
-    map_(MapGen::Generate(width_, height_))
+    map_(MapGen::Generate(width, height)),
+    tcodMap_(width, height)
 {
+    for (size_t y = 0; y < height_; y++) {
+	for (size_t x = 0; x < width_; x++) {
+	    tcodMap_.setProperties(x, y, map_(x,y) == MapGen::CellType::hallway, map_(x,y) == MapGen::CellType::hallway);
+	}
+    }
 }
 
 void Map::Render()

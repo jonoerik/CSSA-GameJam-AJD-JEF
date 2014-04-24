@@ -8,7 +8,7 @@ static size_t width = 150;
 static size_t height = 80;
 
 int main(int argc, char* argv[]) {
-    TCODConsole::initRoot(width, height, "Escape the Thing", false, TCOD_RENDERER_GLSL);
+    TCODConsole::initRoot(width, height, "Escape the Things", false, TCOD_RENDERER_GLSL);
     TCODConsole::setKeyboardRepeat(500, 100);
     Map map(width, height);
     std::vector<Drone> drones;
@@ -20,13 +20,6 @@ int main(int argc, char* argv[]) {
     
     bool running = true;
     while (running && !TCODConsole::isWindowClosed()) {
-	map.Render();
-	for (auto& drone : drones) {
-	    drone.Render();
-	}
-	player.Render();
-	TCODConsole::flush();
-
 	TCOD_key_t key;
 	do {
 	    key = TCODConsole::checkForKeypress(TCOD_KEY_PRESSED);
@@ -48,6 +41,17 @@ int main(int argc, char* argv[]) {
 		break;
 	    }
 	} while (key.vk != TCODK_NONE);
+
+	for (auto& drone : drones) {
+	    drone.DoStep();
+	}
+
+	map.Render();
+	for (auto& drone : drones) {
+	    drone.Render();
+	}
+	player.Render();
+	TCODConsole::flush();
     }
     return 0;
 }
