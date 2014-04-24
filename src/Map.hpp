@@ -6,6 +6,12 @@
 #include "Vector2D.hpp"
 #include "libtcod.hpp"
 
+enum cell_states_t {
+    CELL_UNVISITED,
+    CELL_VISITED,
+    CELL_VISIBLE
+};
+
 class Map
 {
 public:
@@ -15,7 +21,8 @@ public:
     size_t Height() const { return height_; }
     bool Walkable(size_t x, size_t y);
     TCODMap& TcodMap() { return tcodMap_; }
-    void ChangePlayerPos(size_t player_x, size_t player_y, int fov_radius);
+    void ChangePlayerPos(size_t player_x, size_t player_y, int fov_radius);  
+    cell_states_t CellState(size_t px, size_t py);
 
 private:
     size_t width_;
@@ -23,11 +30,7 @@ private:
     Vector2D<MapGen::CellType> map_;
     TCODMap tcodMap_;
     
-    enum cell_states_t {
-	CELL_UNVISITED,
-	CELL_VISITED,
-	CELL_VISIBLE
-    };
+
     Vector2D<cell_states_t> cell_states_;
     
     int player_x_;

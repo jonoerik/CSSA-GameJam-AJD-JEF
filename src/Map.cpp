@@ -61,3 +61,8 @@ bool Map::Walkable(size_t x, size_t y)
 {
     return map_(x, y) == MapGen::CellType::hallway;
 }
+
+cell_states_t Map::CellState(size_t px, size_t py)
+{
+    return cell_states_(px, py);
+}

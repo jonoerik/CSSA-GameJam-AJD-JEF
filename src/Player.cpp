@@ -63,5 +63,6 @@ void Player::Collide() {
 	    posFound = true;
 	}
     }
+    energy_ = 5;
     map_.ChangePlayerPos(x, y, fov_radius);
 }

@@ -19,6 +19,19 @@ int main(int argc, char* argv[]) {
     }
 
     Player player(map, 20, 5);
+
+    // Pick a location for the target
+    size_t target_x, target_y;
+    bool posFound = false;
+    bool won = false;
+    while (!posFound) {
+	target_x = TCODRandom::getInstance()->getInt(0, map.Width() - 1);
+	target_y = TCODRandom::getInstance()->getInt(0, map.Height() - 1);
+	if (map.Walkable(target_x, target_y)) {
+	    posFound = true;
+	}
+    }
+
     
     enum class keystate {
 	up,
@@ -99,19 +112,36 @@ int main(int argc, char* argv[]) {
 		    player.Collide();
 		}
 	    }
+	    
+	    if (player.X() == target_x && player.Y() == target_y) {
+	        won = true;
+	    }
 	}
 	
 	map.Render();
+	if (map.CellState(target_x, target_y) == CELL_VISIBLE) {
+	    TCODConsole::root->setCharForeground(target_x, target_y, TCODColor::gold);
+	    TCODConsole::root->setChar(target_x, target_y, 'X');
+	} else if (map.CellState(target_x, target_y) == CELL_VISITED) {
+	    TCODConsole::root->setCharForeground(target_x, target_y, TCODColor::brass);
+	    TCODConsole::root->setChar(target_x, target_y, 'X');
+	}
 	for (auto& drone : drones) {
 	    drone.Render();
 	}
 	player.Render();
+	
 
 	// Scoring details
-	TCODConsole::root->print(width - 40, 0, "  Lives: %d  ", player.Lives());
-	TCODConsole::root->print(width - 30, 0, "  Energy: %d  ", player.Energy());
-	if (player.IsHidden()) {
-	    TCODConsole::root->print(width - 20, 0, "  Hide Time: %d  ", player.HiddenTime());
+	if (!won) {
+	    TCODConsole::root->print(width - 40, 0, "  Lives: %d  ", player.Lives());
+	    TCODConsole::root->print(width - 30, 0, "  Energy: %d  ", player.Energy());
+	    if (player.IsHidden()) {
+		TCODConsole::root->print(width - 20, 0, "  Hide Time: %d  ", player.HiddenTime());
+	    }
+	} else {
+	    TCODConsole::root->print(width - 80, 0, " YOU ARE WINNER ");
+	    TCODConsole::root->print(width - 60, 0, " wow    such winner      very success ");
 	}
 
 	TCODConsole::flush();
