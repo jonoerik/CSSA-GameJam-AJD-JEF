@@ -34,6 +34,6 @@ bool Player::IsHidden()
 void Player::Collide() {
     lives_--;
     if (!lives_) {
-	std::cout << "much death, very destruction\n";
+
     }
 }

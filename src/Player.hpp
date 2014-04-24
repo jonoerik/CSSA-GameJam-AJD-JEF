@@ -3,7 +3,6 @@
 
 #include "Map.hpp"
 #include "libtcod.hpp"
-#include <iostream>
 
 class Player
 {
