@@ -22,9 +22,9 @@ int main(int argc, char* argv[]) {
     
     enum class keystate {
 	up,
-	pressed,
-	down
-    };
+	    pressed,
+	    down
+	    };
     std::map<TCOD_keycode_t, keystate> keys;
     for (auto k : {TCODK_UP, TCODK_DOWN, TCODK_LEFT, TCODK_RIGHT}) {
 	keys[k] = keystate::up;
@@ -83,15 +83,15 @@ int main(int argc, char* argv[]) {
 		    keys[TCODK_RIGHT] = keystate::up;
 		}
 	    }
-	}
-	    
-	for (auto& drone : drones) {
-	    if (drone.X() == player.X() && drone.Y() == player.Y()) {
-		player.Collide();
-	    }
-	    drone.DoStep();
-	    if (drone.X() == player.X() && drone.Y() == player.Y()) {
-		player.Collide();
+
+	    for (auto& drone : drones) {
+		if (drone.X() == player.X() && drone.Y() == player.Y()) {
+		    player.Collide();
+		}
+		drone.DoStep();
+		if (drone.X() == player.X() && drone.Y() == player.Y()) {
+		    player.Collide();
+		}
 	    }
 	}
 	
