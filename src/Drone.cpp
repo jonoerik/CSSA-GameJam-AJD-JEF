@@ -22,7 +22,7 @@ void Drone::Render()
     TCODConsole::root->setChar(x_, y_, 'D');
 }
 
-void Drone::DoStep()
+void Drone::DoStep(size_t playerX, size_t playerY)
 {
     if (x_ == destX_ && y_ == destY_) {
 	SetDest();
@@ -32,6 +32,16 @@ void Drone::DoStep()
 	path_->get(0, &x, &y);
 	x_ = static_cast<size_t>(x);
 	y_ = static_cast<size_t>(y);
+    }
+
+    if (!fovMap_) {
+	fovMap_ = std::unique_ptr<TCODMap>(new TCODMap(map_->Width(), map_->Height()));
+    }
+    fovMap_->copy(&map_->TcodMap());
+    fovMap_->computeFov(x_, y_, 15);
+    if (fovMap_->isInFov(playerX, playerY)) {
+	destX_ = playerX;
+	destY_ = playerY;
     }
 }
 
