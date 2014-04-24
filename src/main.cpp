@@ -91,11 +91,11 @@ int main(int argc, char* argv[]) {
 	    }
 
 	    for (auto& drone : drones) {
-		if (drone.X() == player.X() && drone.Y() == player.Y()) {
+		if (drone.X() == player.X() && drone.Y() == player.Y() && !player.IsHidden()) {
 		    player.Collide();
 		}
-		drone.DoStep(player.X(), player.Y());
-		if (drone.X() == player.X() && drone.Y() == player.Y()) {
+		drone.DoStep(player.X(), player.Y(), player.IsHidden());
+		if (drone.X() == player.X() && drone.Y() == player.Y() && !player.IsHidden()) {
 		    player.Collide();
 		}
 	    }

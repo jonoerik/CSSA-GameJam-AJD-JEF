@@ -9,7 +9,7 @@ class Drone
 public:
     Drone(Map* map);
     void Render();
-    void DoStep(size_t playerX, size_t playerY);
+    void DoStep(size_t playerX, size_t playerY, bool playerHidden);
     int X() { return x_; }
     int Y() { return y_; }
     
