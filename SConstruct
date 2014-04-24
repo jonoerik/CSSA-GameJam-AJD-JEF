@@ -24,7 +24,10 @@ libs = [
     "libtcodxx.a",
     "libtcod.a",
     "SDL",
-    "GL"
+    "GL",
+    "pthread",
+    "dl",
+    "X11"
 ]
 libpath = [
     "lib/jice-libtcod-d56ffc19afb9"
