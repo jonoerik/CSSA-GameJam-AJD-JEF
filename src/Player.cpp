@@ -10,7 +10,8 @@ Player::Player(Map& map, int x, int y, int fov_radius, int lives) : map_(map), x
 
 void Player::Render()
 {
-    TCODConsole::root->setCharForeground(x, y, TCODColor::lightCyan);
+    TCODConsole::root->setCharForeground(x, y,
+					 IsHidden() ? TCODColor::grey : TCODColor::lightCyan);
     TCODConsole::root->setChar(x, y, '@');
 }
 
