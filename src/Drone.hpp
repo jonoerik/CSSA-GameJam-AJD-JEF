@@ -9,7 +9,7 @@ class Drone
 public:
     Drone(Map* map);
     void Render();
-    void DoStep();
+    void DoStep(size_t playerX, size_t playerY);
     int X() { return x_; }
     int Y() { return y_; }
     
@@ -22,6 +22,7 @@ private:
     size_t destX_;
     size_t destY_;
     std::unique_ptr<TCODPath> path_;
+    std::unique_ptr<TCODMap> fovMap_;
 };
 
 #endif //DRONE_H

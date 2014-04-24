@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
 		if (drone.X() == player.X() && drone.Y() == player.Y()) {
 		    player.Collide();
 		}
-		drone.DoStep();
+		drone.DoStep(player.X(), player.Y());
 		if (drone.X() == player.X() && drone.Y() == player.Y()) {
 		    player.Collide();
 		}
