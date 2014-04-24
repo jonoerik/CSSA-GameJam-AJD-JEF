@@ -1,9 +1,9 @@
 #include "libtcod.hpp"
 #include "Player.hpp"
 
-Player::Player(Map& map, int x, int y) : map_(map), x(x), y(y)
+Player::Player(Map& map, int x, int y, int fov_radius) : map_(map), x(x), y(y), fov_radius(fov_radius)
 {
-
+    map_.TcodMap().computeFov(x, y, fov_radius);
 }
 
 void Player::Render()
@@ -19,11 +19,15 @@ int Player::Move(int dx, int dy)
     if (map_.Walkable(new_x, new_y)) {
 	x += dx;
 	y += dy;
+	//map_.TcodMap().computeFov(x, y, fov_radius);
+	map_.ChangePlayerPos(x, y, fov_radius);
 	return 1;
     }
     return 0;
 }
 
-bool Player::IsHidden() {
+bool Player::IsHidden()
+{
     return false;
 }
+
