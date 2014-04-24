@@ -10,6 +10,8 @@ public:
     Drone(Map* map);
     void Render();
     void DoStep();
+    int X() { return x_; }
+    int Y() { return y_; }
     
 private:
     void SetDest();

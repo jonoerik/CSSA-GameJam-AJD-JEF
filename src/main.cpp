@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 	drones.emplace_back(&map);
     }
 
-    Player player(map, 1, 1, 20);
+    Player player(map, 1, 1, 20, 5);
     
     bool running = true;
     while (running && !TCODConsole::isWindowClosed()) {
@@ -43,7 +43,13 @@ int main(int argc, char* argv[]) {
 	} while (key.vk != TCODK_NONE);
 
 	for (auto& drone : drones) {
+	    if (drone.X() == player.X() && drone.Y() == player.Y()) {
+		player.Collide();
+	    }
 	    drone.DoStep();
+	    if (drone.X() == player.X() && drone.Y() == player.Y()) {
+		player.Collide();
+	    }
 	}
 
 	map.Render();

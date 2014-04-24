@@ -1,7 +1,7 @@
 #include "libtcod.hpp"
 #include "Player.hpp"
 
-Player::Player(Map& map, int x, int y, int fov_radius) : map_(map), x(x), y(y), fov_radius(fov_radius)
+Player::Player(Map& map, int x, int y, int fov_radius, int lives) : map_(map), x(x), y(y), fov_radius(fov_radius), lives_(lives)
 {
     map_.TcodMap().computeFov(x, y, fov_radius);
 }
@@ -31,3 +31,9 @@ bool Player::IsHidden()
     return false;
 }
 
+void Player::Collide() {
+    lives_--;
+    if (!lives_) {
+	std::cout << "much death, very destruction\n";
+    }
+}
